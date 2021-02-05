@@ -24,7 +24,7 @@ class Table extends Component{
                 <td>{this.props.obj.age}</td>
                 <td>{this.props.obj.gender}</td>
                 <td>
-                    <Link to={"/StudentDetail/"+this.props.obj._id} className="btn btn success">Edit</Link>
+                    <Link to={"/StudentDetail/"+this.props.obj._id} className="btn btn-success">Edit</Link>
                 </td>
                 <td>
                     <button type="buton" onClick={this.DeleteStudent} className="btn btn-danger">Delete</button>

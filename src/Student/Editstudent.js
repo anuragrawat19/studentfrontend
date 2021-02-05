@@ -10,6 +10,7 @@ class EditStudent extends React.Component{
     this.onChageRollNo = this.onChageRollNo.bind(this);
     this.onChangeAge   = this.onChangeAge.bind(this);
     this.onChangeGender = this.onChangeGender.bind(this); 
+    this.onSubmit = this.onSubmit.bind(this);
         this.state = {
             name:'',
             rol_number:'',
@@ -20,8 +21,9 @@ class EditStudent extends React.Component{
 
     componentDidMount(){
         // debugger
-        // axios.get("http://localhost:8000/student/"+this.props.match.params._id)
-        axios.get("http://localhost:8000/student/"+"601c3168bce83c72c3624eaa")
+        console.log(this.props.match.params)
+        axios.get("http://localhost:8000/student/"+this.props.match.params.id)
+        // axios.get("http://localhost:8000/student/"+"601c3168bce83c72c3624eaa")
         .then(response=>{
             this.setState({
                 name:response.data.name,
@@ -65,6 +67,7 @@ class EditStudent extends React.Component{
         e.preventDefault();
         // debugger
         const obj = {
+            // id:this.props.match.params.id,
             rol_number :this.state.rol_number,
             name:this.state.name,
             age:this.state.age,
@@ -72,11 +75,29 @@ class EditStudent extends React.Component{
 
         };
 
-        axios.put("student/"+this.props.obj._id,obj)
-        .then(res=>alert("Successfully Edited"));
+        axios.put("http://localhost:8000/student/"+this.props.match.params.id,obj)
+        .then(json=>{
+            if(json.data.status ===2){
+                console.log(json.data.status);
+                alert(json.data.message);
+                this.props.history.push('/Studentlist')
+            }
+            else{
+                alert(json.data.message);
+                // this.props.history.push("/Studentlist")
+            }
+            
+        })
         // debugger;
         this.props.history.push('/Studentlist')
     }
+
+    redirectomainlisting=()=>{
+        // debugger;
+        this.props.history.push('/Studentlist')
+
+    }
+
     render(){
         return(
             <Container className="App">
@@ -101,10 +122,20 @@ class EditStudent extends React.Component{
                                      <Input type="int" name='age' value={this.state.age} onChange={this.onChangeAge} placeholder="Enter Age"/>
                                 </Col>
                             </FormGroup>
-                            <FormGroup row>
+                            {/* <FormGroup row>
                                 <Label for="gender" sm={2}>Gender</Label>
                                  <Col sm={10}>
                                      <Input type="text" name='gender' value={this.state.gender} onChange={this.onChangeGender} placeholder="Enter Your Gender"/>
+                                </Col>
+                            </FormGroup> */}
+                            <FormGroup row>
+                                <Label for="gender" sm={2}>Gender</Label>
+                                 <Col sm={10}>
+                                     <Input type="select" name='gender' value={this.state.gender} onChange={this.onChangeGender} placeholder="Enter Your Gender">
+                                            <option value="--">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                    </Input>
                                 </Col>
                             </FormGroup>
                         </Col>
@@ -115,7 +146,7 @@ class EditStudent extends React.Component{
                                 <Button type="submit" color="success">Submit</Button>
                             </Col>
                             <Col sm={1}>
-                                <Button color="danger">Cancel</Button>
+                                <Button color="danger" onClick={this.redirectomainlisting}>Cancel</Button>
                             </Col>
                             <Col sm={5}></Col>
                         </FormGroup>

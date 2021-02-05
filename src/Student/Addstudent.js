@@ -34,6 +34,11 @@ class Addstudent extends React.Component{
         this.setState({[e.target.name]:e.target.value});
     }
 
+    redirectomainlisting=()=>{
+        this.props.history.push('/Studentlist')
+
+    }
+
     render(){
         return(
             <Container className="App">
@@ -55,13 +60,23 @@ class Addstudent extends React.Component{
                     <FormGroup row>
                         <Label for="age" sm={2}>Age</Label>
                         <Col sm={10}>
-                            <Input type="int" name="age" onChange={this.handleChange} value={this.state.Age} placeholder="Your Age"/>
+                            <Input type="int" name="age" onChange={this.handleChange} value={this.state.age} placeholder="Your Age"/>
                         </Col>
                     </FormGroup>
-                    <FormGroup row>
+                    {/* <FormGroup row>
                         <Label for="gender" sm={2}>Gender</Label>
                         <Col sm={10}>
                             <Input type="text" name="gender" onChange={this.handleChange} value={this.state.gender} placeholder="Your Gender"/>
+                        </Col>
+                    </FormGroup> */}
+                    <FormGroup row>
+                        <Label for="gender" sm={2}>Gender</Label>
+                        <Col sm={10}>
+                            <Input type="select" name="gender" onChange={this.handleChange} value={this.state.gender} placeholder="Your Gender">
+                                <option value="--">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </Input>
                         </Col>
                     </FormGroup>
                     </Col>
@@ -73,7 +88,7 @@ class Addstudent extends React.Component{
                                 <button type="button" onClick={this.Addstudent} className="btn btn-success">Submit</button>
                             </Col>
                             <Col sm={1}>
-                                <Button color="danger">Cancel</Button>{' '}  
+                                <Button color="danger" onClick={this.redirectomainlisting}>Cancel</Button>{''}  
                             </Col>
                             <Col sm={5}>
                             </Col>

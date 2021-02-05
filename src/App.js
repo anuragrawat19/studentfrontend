@@ -25,7 +25,7 @@ function App() {
         </nav><br/>
         <Switch>
           <Route exact path='/Addstudent' component={Addstudent}/>
-          <Route  path='/StudentDetail' component={EditStudent}/>
+          <Route  path='/StudentDetail/:id' component={EditStudent}/>
           <Route  path="/Studentlist" component={Studentlist}/>
 
         </Switch>
